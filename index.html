@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+		<title>freshcodecolor 在线代码着色高亮 --- powered by yangyuan</title>
+		<meta name="keywords" content="freshcodecolor, 在线代码着色, 在线代码高亮" />
+    <meta name="description" content="freshcodecolor 在线代码着色高亮,支持html,css,javascript,java" />
+		<link rel="stylesheet" href='css/main.css' />
+		<link rel="stylesheet" href='css/ybutton.css' />
+		<style>
+		
+		</style>
+	</head>
+	<body>
+    
+    <!-- 标题 -->
+    <div class="header">
+      <h1>在线代码高亮</h1>
+    </div>
+    
+    <!-- 内容 -->
+    <div class="content">
+      <!-- 说明 -->
+      <blockquote>
+        <p>
+          本工具可以实现在线代码着色，目前仅支持HTML、CSS、Javascript、Java，其实她可以支持更多语言的，但由于作者水平有限，仅仅熟悉这几种语言。同时，本工具仅仅实现了代码着色，并没有代码格式化功能，请先格式化后，再进行着色。代码着色并不十分完美，但尽力做到最好。
+        </p>
+        <p>
+          珍爱生命，远离IE，建议使用谷歌或火狐浏览器浏览本页面。如果您喜欢本程序，可以：
+          <div class="ybutton">
+            <span>
+              <a href="https://github.com/iyangyuan/freshcodecolor" target="_blank" title="freshcodecolor 在线代码着色高亮源码">View On GitHub</a>
+            </span>
+          </div>
+        </p>
+      </blockquote>
+      <!-- 源码 -->
+      <div class="marginbottom20">
+        <textarea id="code_source" class="form-control"></textarea>
+      </div>
+      <!-- 操作 -->
+      <div class="marginbottom20">
+        <div class="form-select">
+          <select id="strategySelector">
+            <option value="" disabled="disabled" selected="selected">选择语言</option>
+            <option value="strategyhtml">HTML</option>
+            <option value="strategyjavascript">CSS</option>
+            <option value="strategycss">JavaScript</option>
+            <option value="strategyjava">Java</option>
+          </select>
+        </div>
+        <button type="button" onclick="javascript:compile();" class="btn btn-default btn-lg">语法着色</button>
+        <button type="button" onclick="javascript:getPic();" class="btn btn-default btn-lg">生成图片</button>
+      </div>
+      <!-- 操作 -->
+      <div class="marginbottom20">
+        <div id="code_format">
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部 -->
+    <div class="well well-sm">
+      在线工具由&nbsp;<a href="http://www.cnblogs.com/iyangyuan" target="_blank" title="杨元的博客">@杨元</a>&nbsp;版权所有|&nbsp;<a href="http://www.kpdown.com/" target="_blank" title="开辟软件站">@开辟软件站</a>&nbsp;提供服务器和带宽
+    </div>
+    
+	</body>
+	<script src="lib/freshcodecolor/freshcodecolor.js" type="text/javascript"></script>
+	<script src="lib/freshcodecolor/strategyhtml.js" type="text/javascript"></script>
+	<script src="lib/freshcodecolor/strategyjavascript.js" type="text/javascript"></script>
+	<script src="lib/freshcodecolor/strategycss.js" type="text/javascript"></script>
+	<script src="lib/freshcodecolor/strategyjava.js" type="text/javascript"></script>
+	<script src="lib/html2canvas/html2canvas.js" type="text/javascript"></script>
+	<script>
+    var strategys = {};
+    
+    //初始化策略容器
+    strategys["strategyhtml"] = strategyhtml;
+    strategys["strategyjavascript"] = strategyjavascript;
+    strategys["strategycss"] = strategycss;
+    strategys["strategyjava"] = strategyjava;
+    
+    //生成图片
+    function getPic(){
+      html2canvas(document.getElementById("code_format"), {
+          onrendered: function(canvas) {
+              window.open(canvas.toDataURL());
+          }
+      });
+    }
+    //代码着色
+    function compile(){
+      var result = "",
+          strategyKey = "",
+          strategy = {};
+      //根据选择的语言读取策略
+      strategyKey = document.getElementById("strategySelector").value;
+      strategy = strategys[strategyKey];
+      //判断是否存在该策略
+      if(strategy){
+        //解析策略，获得渲染结果
+        result = freshcodecolor.compile(document.getElementById("code_source").value,strategy);
+        document.getElementById("code_format").innerHTML = result;
+      }
+    }
+    
+	</script>
+</html>
