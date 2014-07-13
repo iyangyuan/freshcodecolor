@@ -8,3 +8,5 @@ freshcodecolor 基于正则表达式的在线代码着色工具
 珍爱生命，远离IE，建议使用谷歌或火狐浏览器浏览本页面，否则生成图片功能不能正常使用，这是用的HTML5画布特性。  
   
 同时，本工具仅仅实现了代码着色，并没有代码格式化功能，请先格式化后，再进行着色。  
+  
+[我要体验freshcodecolor](http://www.kpdown.com/freshcodecolor "freshcodecolor在线代码着色工具")  
